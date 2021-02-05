@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kjm.test.mapper.TestMapper">
+
+	<!-- <select id="testDB" resultType="kjm.test.vo.TestVo">
+		SELECT *
+		FROM testdb         
+	</select> -->
+	
+	<insert id="SubmitAddr" parameterType="kjm.test.vo.AddressVo">
+		INSERT INTO address(
+			addrno, addr1, addr2
+		)VALUES(
+			#{sample6_postcode}, #{sample6_address}, #{sample6_detailAddress}
+		)
+	</insert>
+	
+	<insert id="insertWeather" parameterType="kjm.test.vo.WeatherVo">
+		INSERT INTO weather_response(
+			baseDate, baseTime, category, fcstDate, fcstTime, fcstValue, nx, ny
+		)VALUES(
+			#{baseDate}, #{baseTime}, #{category}, #{fcstDate}, #{fcstTime}, #{fcstValue}, #{nx}, #{ny}
+		)
+	</insert>
+</mapper>
