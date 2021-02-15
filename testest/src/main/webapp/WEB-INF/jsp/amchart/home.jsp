@@ -40,17 +40,14 @@
 				for(var i in data){
 					//console.log(data[i].fcstValue);
 					//console.log(data[i].fcstTime);
-					//.push(data[i].fcstValue)
+	
 					chartData.push({
 						"column" : data[i].fcstValue,
 						"date" : data[i].fcstTime
 					})
 				}
+				//콘솔창에 잘 들어갔는지 test
 				console.log(chartData);
-				//dataprovider
-				/* var chartData = {
-					""
-				};  */
 				
 				AmCharts.makeChart("chartdiv",
 						{
@@ -96,7 +93,7 @@
 								{
 									"id": "Title-1",
 									"size": 15,
-									"text": "Chart Title"
+									"text": "2021-02-09 날씨"
 								}
 							],
 							/* "dataProvider": [
