@@ -22,4 +22,10 @@
 			#{baseDate}, #{baseTime}, #{category}, #{fcstDate}, #{fcstTime}, #{fcstValue}, #{nx}, #{ny}
 		)
 	</insert>
+	
+	<select id="selectOutput" resultType="kjm.test.vo.WeatherVo">
+		select distinct fcstValue, fcstTime
+		from weather_response
+		where category="T3H" and fcstDate="20210209";
+	</select>
 </mapper>

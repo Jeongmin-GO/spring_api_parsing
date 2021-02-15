@@ -3,7 +3,6 @@ package kjm.test.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -14,10 +13,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
@@ -33,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kjm.test.service.TestService;
 import kjm.test.vo.AddressVo;
-import kjm.test.vo.TestVo;
 import kjm.test.vo.WeatherVo;
 
 @Controller
@@ -48,8 +43,8 @@ public class TestController {
 	
 	/*기상청 OPEN API JSON 파싱하는 함수 */
 	@RequestMapping(value="/testapijson.do", method=RequestMethod.GET)
-	public void callapijson() throws Exception{
-		String baseDate = "20210205";
+	public void callapijson(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		String baseDate = "20210210";
 		String baseTime = "0800"; /*0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회)*/
 		String nx = "62"; 
 		String ny= "125"; 
@@ -125,17 +120,18 @@ public class TestController {
         	System.out.println("************** wv.ny "+ i +" : "+wv.getNy());
         	System.out.println("----------------------------------------------------------");
         	
-        	testService.insertWeather(wv);
+        	/*testService.insertWeather(wv);*/
         }
+
 	}
 	
 	/*기상청 OPEN API XML 파싱하는 함수 */
 	@RequestMapping(value="/testapixml.do", method=RequestMethod.GET)
 	public void callapixml(String baseDate, String baseTime, String nx, String ny) throws JDOMException, IOException,Exception{
-		baseDate = "20210204";
+		baseDate = "20210209";
 		baseTime = "1400";
-		nx = "62"; 
-		ny= "125"; 
+		nx = "61"; 
+		ny= "126"; 
 		
 		List<HashMap<String, Object>> result = new ArrayList<HashMap<String, Object>>();
 
@@ -206,7 +202,7 @@ public class TestController {
 		}
 
 		model.addAttribute("list", list);*/
-		return "sample/indexTest";
+		return "egovframework/example/sample/indexTest";
 	}
 	
 	@RequestMapping(value="/usersignup.do", method=RequestMethod.POST)

@@ -13,5 +13,7 @@ public interface TestService {
 	public void SubmitAddr(AddressVo addrvo) throws Exception;
 
 	public void insertWeather(WeatherVo wv) throws Exception;
-	
+
+	public List<WeatherVo> selectOutput() throws Exception;
+
 }

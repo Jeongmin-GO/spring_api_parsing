@@ -34,6 +34,11 @@ public class TestServiceImpl extends EgovAbstractServiceImpl implements TestServ
 		mapper.insertWeather(wv);
 		
 	}
+
+	@Override
+	public List<WeatherVo> selectOutput() throws Exception {
+		return mapper.selectOutput();
+	}
 	
 	
 }
