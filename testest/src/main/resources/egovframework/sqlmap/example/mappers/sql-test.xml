@@ -28,4 +28,8 @@
 		from weather_response
 		where category="T3H" and fcstDate="20210209";
 	</select>
+	
+	<select id="test" resultType="String">
+		SELECT 'test'
+	</select>
 </mapper>
