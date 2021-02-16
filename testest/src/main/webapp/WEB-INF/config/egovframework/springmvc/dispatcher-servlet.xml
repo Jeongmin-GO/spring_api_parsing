@@ -3,9 +3,13 @@
         xmlns:p="http://www.springframework.org/schema/p"
         xmlns:context="http://www.springframework.org/schema/context"
         xmlns:mvc="http://www.springframework.org/schema/mvc"
+        
+        xmlns:task="http://www.springframework.org/schema/task"
+        
         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 
 	<!-- <mvc:annotation-driven /> -->
 
@@ -14,7 +18,13 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
     </context:component-scan>
-
+	
+	<!-- 스케줄러파일이 존재하는 패키지 -->
+	<context:component-scan base-package="kjm.scheduler"/>
+		<!-- 해당 태그들은 크론탭을 설정에 필요한 태그들 -->
+		<task:scheduler id="jobScheduler" pool-size="10"/>
+		<task:annotation-driven scheduler="jobScheduler"/>
+		
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="webBindingInitializer">
             <bean class="egovframework.example.cmmn.web.EgovBindingInitializer"/>
