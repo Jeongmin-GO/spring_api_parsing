@@ -40,5 +40,4 @@ public class TestServiceImpl extends EgovAbstractServiceImpl implements TestServ
 		return mapper.selectOutput();
 	}
 	
-	
 }

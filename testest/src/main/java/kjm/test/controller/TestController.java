@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,6 +37,9 @@ import kjm.test.vo.WeatherVo;
 // @RequestMapping("/test")
 public class TestController {
 	
+	@Resource(name = "TestService")
+	private TestService testService;
+	
 	protected final static String authKey = "rlfDiciScap8pTdtbIlkN9%2FX%2BTe0pLftDTjzoneo4rhGN6DwrNHLQ%2Bq9iXWxO0PwR9NZi0Zj%2BbREw74M%2BEuEvA%3D%3D";
 	
 	private Element send(String url) throws JDOMException, IOException {
@@ -44,10 +49,37 @@ public class TestController {
 	/*기상청 OPEN API JSON 파싱하는 함수 */
 	@RequestMapping(value="/testapijson.do", method=RequestMethod.GET)
 	public void callapijson(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
-		String baseDate = "20210210";
-		String baseTime = "0800"; /*0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회)*/
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat timeformat = new SimpleDateFormat("HHmm");
+
+		Date datetime = new Date();
+		
+		String date = dateformat.format(datetime);
+		String time = timeformat.format(datetime);
+		int i_time = Integer.parseInt(time);
+		
+		String baseDate = date;
+		String baseTime = null; /*0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회)*/
 		String nx = "62"; 
 		String ny= "125"; 
+		
+		if(i_time>=210 && i_time<510) {
+			baseTime = "0200";
+		}else if(i_time>=510 && i_time<810) {
+			baseTime="0500";
+		}else if(i_time>=810 && i_time<1100) {
+			baseTime="0800";
+		}else if(i_time>=1110 && i_time<1410) {
+			baseTime="1100";
+		}else if(i_time>=1410 && i_time<1710) {
+			baseTime="1400";
+		}else if(i_time>=1710 && i_time<2010) {
+			baseTime="1700";
+		}else if(i_time>=2010 && i_time<2310) {
+			baseTime="2000";
+		}else if(i_time>=2310 && i_time<0210) {
+			baseTime="2300";
+		}
 		
 		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst"); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + authKey); /*Service Key*/
@@ -75,7 +107,7 @@ public class TestController {
         while ((line = rd.readLine()) != null) {
             sb.append(line);
         }
-        rd.close();
+
         conn.disconnect();
         
         String result = sb.toString();
@@ -128,7 +160,7 @@ public class TestController {
 	/*기상청 OPEN API XML 파싱하는 함수 */
 	@RequestMapping(value="/testapixml.do", method=RequestMethod.GET)
 	public void callapixml(String baseDate, String baseTime, String nx, String ny) throws JDOMException, IOException,Exception{
-		baseDate = "20210209";
+		baseDate = "20210215";
 		baseTime = "1400";
 		nx = "61"; 
 		ny= "126"; 
@@ -175,17 +207,16 @@ public class TestController {
 			wv.nx = vo.get("nx").toString();
 			wv.ny = vo.get("ny").toString();
 			
-			//System.out.println("################# vo " + result.size() + ":" + vo);
-			testService.insertWeather(wv);
+			System.out.println("################# vo " + result.size() + ":" + vo);
+//			testService.insertWeather(wv);
 		}
 		//testService.insertWeather(wv);
 //		return wv;
 		
+		
 	}
 	
 	/*이 아래는 egovframework가 잘 작동되는지 확인하기 위한 개인 test용입니다.*/
-	@Resource(name = "TestService")
-	private TestService testService;
 
 	@RequestMapping("/hello.do")
 	public @ResponseBody String HelloWorldTest() {

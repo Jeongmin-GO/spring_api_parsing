@@ -18,5 +18,5 @@ public interface TestMapper {
 
 	public List<WeatherVo> selectOutput() throws Exception;
 	
-	public String test();
+	public List<WeatherVo> test() throws Exception;
 }
