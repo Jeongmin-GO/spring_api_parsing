@@ -40,7 +40,7 @@ public class TestController {
 	@Resource(name = "TestService")
 	private TestService testService;
 	
-	protected final static String authKey = "rlfDiciScap8pTdtbIlkN9%2FX%2BTe0pLftDTjzoneo4rhGN6DwrNHLQ%2Bq9iXWxO0PwR9NZi0Zj%2BbREw74M%2BEuEvA%3D%3D";
+	protected final static String authKey = "";
 	
 	private Element send(String url) throws JDOMException, IOException {
 		return new SAXBuilder().build(url).getRootElement();

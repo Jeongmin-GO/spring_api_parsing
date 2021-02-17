@@ -35,7 +35,7 @@ public class Scheduler {
 	@Resource(name = "TestService")
 	private TestService testService;
 	
-	protected final static String authKey = "rlfDiciScap8pTdtbIlkN9%2FX%2BTe0pLftDTjzoneo4rhGN6DwrNHLQ%2Bq9iXWxO0PwR9NZi0Zj%2BbREw74M%2BEuEvA%3D%3D";
+	protected final static String authKey = "";
 	
 	//				       초 분 시 일 월 요일 
 	@Scheduled(cron = "0/30 * * * * *")
