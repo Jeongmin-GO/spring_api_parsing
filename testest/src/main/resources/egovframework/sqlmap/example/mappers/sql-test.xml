@@ -20,7 +20,7 @@
 			baseDate, baseTime, category, fcstDate, fcstTime, fcstValue, nx, ny
 		)VALUES(
 			#{baseDate}, #{baseTime}, #{category}, #{fcstDate}, #{fcstTime}, #{fcstValue}, #{nx}, #{ny}
-		)
+		)ON DUPLICATE KEY UPDATE baseDate=#{baseDate}, baseTime=#{baseTime}, fcstValue=#{fcstValue}, nx=#{nx}, ny=#{ny}
 	</insert>
 	
 	<select id="selectOutput" resultType="kjm.test.vo.WeatherVo">
@@ -29,7 +29,9 @@
 		where category="T3H" and fcstDate="20210209";
 	</select>
 	
-	<select id="test" resultType="String">
-		SELECT 'test'
+	<select id="test" resultType="kjm.test.vo.WeatherVo">
+		SELECT DISTINCT fcstValue, fcstTime, fcstDate
+		from weather_response
+		where category="T3H";
 	</select>
 </mapper>
