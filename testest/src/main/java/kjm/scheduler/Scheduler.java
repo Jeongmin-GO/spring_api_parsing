@@ -38,7 +38,7 @@ public class Scheduler {
 	protected final static String authKey = "";
 	
 	//				       초 분 시 일 월 요일 
-	@Scheduled(cron = "0/30 * * * * *")
+	@Scheduled(cron = "0 0 0/1 * * *")
 	public void autoUpdate() {
 		try {
 			callapijson();
@@ -75,7 +75,7 @@ public class Scheduler {
 			baseTime = "0200";
 		}else if(i_time>=510 && i_time<810) {
 			baseTime="0500";
-		}else if(i_time>=810 && i_time<1100) {
+		}else if(i_time>=810 && i_time<1110) {
 			baseTime="0800";
 		}else if(i_time>=1110 && i_time<1410) {
 			baseTime="1100";
@@ -93,7 +93,7 @@ public class Scheduler {
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + authKey); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + URLEncoder.encode("-", "UTF-8")); /*공공데이터포털에서 받은 인증키*/
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8")); /*요청자료형식(XML/JSON)Default: XML*/
         urlBuilder.append("&" + URLEncoder.encode("base_date","UTF-8") + "=" + URLEncoder.encode(baseDate , "UTF-8")); /*15년 12월 1일발표*/
         urlBuilder.append("&" + URLEncoder.encode("base_time","UTF-8") + "=" + URLEncoder.encode(baseTime , "UTF-8")); /*05시 발표*/
