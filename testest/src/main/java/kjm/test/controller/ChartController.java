@@ -38,8 +38,10 @@ public class ChartController {
 		List<WeatherVo> output =service.selectOutput();
 		System.out.println("############# outPut : " + output);
 		for(int i=0; i<output.size(); i++) {
-			System.out.println("############# getFcstTime : " + output.get(i).getFcstTime());
-			System.out.println("############# getFcstValue : " + output.get(i).getFcstValue());
+			System.out.println("############# FcstTime : " + output.get(i).getFcstTime());
+			System.out.println("############# FcstValue : " + output.get(i).getFcstValue());
+			System.out.println("############# FcstDate : " + output.get(i).getFcstDate());
+			System.out.println("-----------------------------------------");
 		}
 		mav.addObject("result", output);
 		mav.setViewName("jsonView");

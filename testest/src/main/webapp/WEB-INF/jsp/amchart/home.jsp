@@ -34,16 +34,15 @@
 			success:function(responseData){
 				//console.log(responseData);
 				var data = responseData.result;
-				//console.log(data);
+				console.log(data);
 				
 				var chartData = [];
 				for(var i in data){
-					//console.log(data[i].fcstValue);
-					//console.log(data[i].fcstTime);
-	
+		
 					chartData.push({
 						"column" : data[i].fcstValue,
-						"date" : data[i].fcstTime
+						"time" : data[i].fcstTime,
+						//"date" : data[i].fcstDate
 					})
 				}
 				//콘솔창에 잘 들어갔는지 test
@@ -52,14 +51,15 @@
 				AmCharts.makeChart("chartdiv",
 						{
 							"type": "serial",
-							"categoryField": "date",
+							"categoryField": "time",
 							//"dataDateFormat": "YYYY-MM-DD HH",
-							"dataDateFormat" : "HHMM",
+							//"dataDateFormat" : "YYYYMMDD",
+							"dataDateFormat" : "HHmm",
 							"theme": "light",
-							"categoryAxis": {
+							/* "categoryAxis": {
 								"minPeriod": "hh",
-								"parseDates": true
-							},
+								"parseDates": true,
+							}, */ /*이 주석이 문제야...*/
 							"chartCursor": {
 								"enabled": true,
 								"categoryBalloonDateFormat": "JJ:NN"
@@ -72,7 +72,7 @@
 								{
 									"bullet": "round",
 									"id": "AmGraph-1",
-									"title": "graph 1",
+									"title": "temperature",
 									"valueField": "column"
 								}
 							],
@@ -93,7 +93,7 @@
 								{
 									"id": "Title-1",
 									"size": 15,
-									"text": "2021-02-09 날씨"
+									"text": "현재시간 이후 날씨"
 								}
 							],
 							/* "dataProvider": [
@@ -128,7 +128,6 @@
 </script>
 </head>
 <body>
-	<h1>Ajax 호출 TEST</h1>
 	<div id="chartdiv"></div>
 </body>
 </html>

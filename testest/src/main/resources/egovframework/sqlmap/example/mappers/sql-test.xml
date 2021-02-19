@@ -15,6 +15,7 @@
 		)
 	</insert>
 	
+	<!-- 복합키(category, fcstDate, fcstTime)가 중복되면 update 아니면 insert -->
 	<insert id="insertWeather" parameterType="kjm.test.vo.WeatherVo">
 		INSERT INTO weather_response(
 			baseDate, baseTime, category, fcstDate, fcstTime, fcstValue, nx, ny
@@ -24,9 +25,15 @@
 	</insert>
 	
 	<select id="selectOutput" resultType="kjm.test.vo.WeatherVo">
-		select distinct fcstValue, fcstTime
+		<!-- select fcstValue, fcstTime, fcstDate
 		from weather_response
-		where category="T3H" and fcstDate="20210209";
+		where category="T3H" and fcstDate > (now()-interval 1 Day) -->
+		<!-- select fcstValue, fcstTime, fcstDate
+		from weather_response
+		where category="T3H" and fcstDate > now() -->
+		select fcstTime, fcstValue,fcstDate
+		from weather_response
+		where category="T3H" and concat(fcstDate,fcstTime) >= date_format(now(), '%Y%m%d%H%i')
 	</select>
 	
 	<select id="test" resultType="kjm.test.vo.WeatherVo">
